@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: live-polling-system-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        scope: run_and_build
+      - key: PORT
+        value: 5000
+      - key: CORS_ORIGIN
+        value: https://resilient-live-polling-system-nine.vercel.app
