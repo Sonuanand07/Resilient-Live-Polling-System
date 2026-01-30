@@ -71,17 +71,6 @@ npm start  # Runs on http://localhost:3000
 
 ---
 
-## 📚 Documentation
-
-| Guide | Purpose |
-|-------|---------|
-| [SETUP_AND_DEPLOYMENT_GUIDE.md](SETUP_AND_DEPLOYMENT_GUIDE.md) | Complete setup, environment, deployment |
-| [UPDATED_IMPLEMENTATION_GUIDE.md](UPDATED_IMPLEMENTATION_GUIDE.md) | All fixes and architectural details |
-| [GIT_COMMANDS_REFERENCE.md](GIT_COMMANDS_REFERENCE.md) | Git workflow and commands |
-| [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) | Pre-submission verification |
-
----
-
 ## 🎯 Project Overview
 
 This is a production-ready polling application featuring:
@@ -245,6 +234,90 @@ npm start
 cd frontend
 npm run build
 ```
+
+---
+
+## 🌍 Deployment Guide
+
+### Production URLs (Already Deployed)
+
+- **Frontend (Vercel)**: https://resilient-live-polling-system-nine.vercel.app
+- **Backend API (Render)**: https://resilient-live-polling-system-lujm.onrender.com
+- **GitHub**: https://github.com/Sonuanand07/Resilient-Live-Polling-System
+
+### Deploy to Render (Backend)
+
+#### Prerequisites
+- Render.com account (free tier available)
+- MongoDB Atlas connection string
+- GitHub repository linked
+
+#### Steps
+
+1. **Create New Service on Render**:
+   - Go to Render Dashboard
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository
+   - Select the `live-polling-system` folder
+
+2. **Configure Build Settings**:
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Root Directory**: `backend`
+
+3. **Set Environment Variables**:
+   - `NODE_ENV`: `development` (for build) then `production` (runtime)
+   - `MONGODB_URI`: Your MongoDB Atlas connection string
+   - `PORT`: `5000`
+   - `CORS_ORIGIN`: Your Vercel frontend URL
+
+4. **Deploy**:
+   - Click "Deploy"
+   - Watch build logs for completion
+   - Access API at `https://<service-name>.onrender.com`
+
+### Deploy to Vercel (Frontend)
+
+#### Prerequisites
+- Vercel account (free tier available)
+- GitHub repository linked
+
+#### Steps
+
+1. **Create New Project on Vercel**:
+   - Go to Vercel Dashboard
+   - Click "New Project"
+   - Import your GitHub repository
+   - Select the project root
+
+2. **Configure Build Settings**:
+   - **Framework**: React
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `build`
+   - **Root Directory**: `frontend`
+
+3. **Set Environment Variables**:
+   - `REACT_APP_SOCKET_URL`: Your Render backend URL (e.g., `https://your-app.onrender.com`)
+
+4. **Deploy**:
+   - Click "Deploy"
+   - Vercel automatically deploys on every git push
+   - Access frontend at `https://<project>.vercel.app`
+
+### Troubleshooting Deployment
+
+**Issue**: TypeScript errors on Render (missing @types packages)
+- **Solution**: Ensure `package-lock.json` is committed with all devDependencies
+- Render `buildCommand` must be: `npm install && npm run build`
+- Don't set `NODE_ENV=production` during build phase
+
+**Issue**: Socket connection fails in production
+- **Solution**: Ensure `CORS_ORIGIN` matches your frontend URL
+- Check backend logs for CORS errors
+
+**Issue**: Frontend can't connect to backend
+- **Solution**: Update `REACT_APP_SOCKET_URL` to your Render backend URL
+- Verify backend is deployed and running: `https://<backend-url>/health`
 
 ---
 
