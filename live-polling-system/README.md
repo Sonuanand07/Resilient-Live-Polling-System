@@ -4,6 +4,14 @@ A **Resilient Live Polling System** built with React, Node.js, Express, Socket.i
 
 ---
 
+## 🌐 Live Production URLs
+
+- **Frontend**: https://resilient-live-polling-system-nine.vercel.app
+- **Backend API**: https://resilient-live-polling-system-lujm.onrender.com
+- **GitHub Repository**: https://github.com/Sonuanand07/Resilient-Live-Polling-System
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -15,7 +23,7 @@ A **Resilient Live Polling System** built with React, Node.js, Express, Socket.i
 
 ```bash
 # Clone repository
-git clone <your-repo-url>
+git clone https://github.com/Sonuanand07/Resilient-Live-Polling-System
 cd live-polling-system
 
 # Backend Setup
@@ -24,16 +32,17 @@ npm install
 npm run build
 npm start  # Runs on http://localhost:5000
 
-# Frontend Setup (new terminal)
+# Frontend Setup (new terminal, from root)
 cd frontend
 npm install
 npm start  # Runs on http://localhost:3000
 ```
 
 ### Usage
-1. Open http://localhost:3000
-2. Teacher: Click "I'm a Teacher" → Create a poll
-3. Student: Click "I'm a Student" → Enter name and teacher ID from teacher
+1. **Local Development**: Open http://localhost:3000
+2. **Production**: Open https://resilient-live-polling-system-nine.vercel.app
+3. Teacher: Click "I'm a Teacher" → Create a poll → Share Teacher ID
+4. Student: Click "I'm a Student" → Enter name and teacher ID → Join poll
 
 ---
 
@@ -43,10 +52,12 @@ npm start  # Runs on http://localhost:3000
 
 | Issue | Status | Fix |
 |-------|--------|-----|
-| CastError with ObjectId 'current' | ✅ Fixed | Fetch active poll from server |
-| Text alignment in role cards | ✅ Fixed | Centered layout and proper descriptions |
+| Student not receiving polls | ✅ Fixed | Socket room join on request-active-poll |
+| Poll duration limited to seconds | ✅ Fixed | Added Minutes/Hours options |
+| Timer display format | ✅ Fixed | Shows MM:SS and HH:MM:SS format |
+| Name and Teacher ID form flow | ✅ Fixed | Combined into single form |
+| TypeScript compilation on Render | ✅ Fixed | Added proper type annotations |
 | ESLint warnings | ✅ Fixed | Removed unused imports |
-| Missing dependencies | ✅ Fixed | Added teacherId to dependency array |
 
 ### ✅ All Features Working
 
@@ -542,7 +553,44 @@ REACT_APP_SOCKET_URL=http://localhost:5000
 
 ---
 
-## 📦 Key Dependencies
+## � Environment Setup
+
+### Backend (.env)
+```env
+MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/db
+PORT=5000
+NODE_ENV=production
+CORS_ORIGIN=https://resilient-live-polling-system-nine.vercel.app
+```
+
+### Frontend (.env.production)
+```env
+REACT_APP_SOCKET_URL=https://resilient-live-polling-system-lujm.onrender.com
+```
+
+---
+
+## 🚀 Deployment
+
+### Backend (Render.com)
+1. Connect GitHub repo: https://github.com/Sonuanand07/Resilient-Live-Polling-System
+2. Root Directory: `backend`
+3. Build Command: `npm install && npm run build`
+4. Start Command: `npm start`
+5. Environment Variables: Set `MONGODB_URI`, `CORS_ORIGIN`, `NODE_ENV`
+6. Auto-deploys on push to `main` branch
+
+### Frontend (Vercel)
+1. Connect GitHub repo
+2. Root Directory: `frontend`
+3. Build Command: `npm run build`
+4. Output Directory: `build`
+5. Environment Variables: Set `REACT_APP_SOCKET_URL`
+6. Auto-deploys on push to `main` branch
+
+---
+
+## �📦 Key Dependencies
 
 ### Backend
 - `express` - Web framework
