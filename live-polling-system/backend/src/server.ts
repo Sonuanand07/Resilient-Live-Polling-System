@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
@@ -32,19 +32,19 @@ new PollSocketHandler(io);
 const pollController = new PollController();
 
 // Routes
-app.post('/api/polls', (req, res) => pollController.createPoll(req, res));
-app.get('/api/polls/teacher/:teacherId', (req, res) =>
+app.post('/api/polls', (req: Request, res: Response) => pollController.createPoll(req, res));
+app.get('/api/polls/teacher/:teacherId', (req: Request, res: Response) =>
   pollController.getActivePoll(req, res)
 );
-app.get('/api/polls/:pollId', (req, res) => pollController.getPollById(req, res));
-app.post('/api/polls/vote', (req, res) => pollController.submitVote(req, res));
-app.put('/api/polls/:pollId/end', (req, res) => pollController.endPoll(req, res));
-app.get('/api/polls/history/:teacherId', (req, res) =>
+app.get('/api/polls/:pollId', (req: Request, res: Response) => pollController.getPollById(req, res));
+app.post('/api/polls/vote', (req: Request, res: Response) => pollController.submitVote(req, res));
+app.put('/api/polls/:pollId/end', (req: Request, res: Response) => pollController.endPoll(req, res));
+app.get('/api/polls/history/:teacherId', (req: Request, res: Response) =>
   pollController.getPollHistory(req, res)
 );
 
 // Health check
-app.get('/health', (req, res) => {
+app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
